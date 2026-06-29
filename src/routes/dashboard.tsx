@@ -12,7 +12,7 @@ import { DashHeader } from "@/components/DashHeader";
 import { NeighborhoodTable } from "@/components/NeighborhoodTable";
 import { MaterialTable } from "@/components/MaterialTable";
 import { CitySelector } from "@/components/CitySelector";
-import { TimeHorizonControls } from "@/components/TimeHorizonControls";
+import { TimeControls, HorizonControls } from "@/components/TimeHorizonControls";
 import { AlertsFeed } from "@/components/AlertsFeed";
 import { LSTTrendChart } from "@/components/LSTTrendChart";
 import {
@@ -98,17 +98,27 @@ function Dashboard() {
       <DashHeader cityId={cityId} />
 
       {/* ── Sub-header Controls Bar ── */}
-      <div className="border-b border-primary/10 bg-background/50 backdrop-blur-lg">
-        <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-end gap-3 px-6 py-2.5">
-          <CitySelector cityId={cityId} onChange={changeCity} />
-          <TimeHorizonControls tod={tod} setTod={setTod} horizon={horizon} setHorizon={setHorizon} />
-          <button
-            onClick={exportCSV}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-primary/20 bg-primary/8 px-3.5 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary transition-all hover:bg-primary/15 hover:shadow-[0_0_15px_var(--primary)/15]"
-          >
-            <Download className="h-3.5 w-3.5" />
-            Export CSV
-          </button>
+      <div className="relative z-40 border-b border-primary/10 bg-[#030914]/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-between gap-4 px-6 py-4">
+          
+          {/* Left Group */}
+          <div className="flex flex-wrap items-center gap-4">
+            <TimeControls tod={tod} setTod={setTod} />
+            <CitySelector cityId={cityId} onChange={changeCity} />
+          </div>
+
+          {/* Right Group */}
+          <div className="flex flex-wrap items-center gap-4">
+            <HorizonControls horizon={horizon} setHorizon={setHorizon} />
+            <button
+              onClick={exportCSV}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-5 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-primary shadow-lg transition-all hover:bg-primary/20 hover:shadow-[0_0_15px_rgba(34,211,238,0.2)]"
+            >
+              <Download className="h-4 w-4" />
+              Export CSV
+            </button>
+          </div>
+          
         </div>
       </div>
 
