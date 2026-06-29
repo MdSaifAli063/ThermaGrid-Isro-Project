@@ -17,15 +17,15 @@ export function NeighborhoodTable({
     .sort((a, b) => b.risk - a.risk);
 
   return (
-    <div className="glass-panel overflow-hidden rounded-lg">
-      <div className="flex items-center justify-between border-b border-border/60 px-4 py-3">
+    <div className="space-panel overflow-hidden rounded-2xl">
+      <div className="flex items-center justify-between border-b border-primary/10 px-5 py-4">
         <div>
           <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
             Priority queue
           </div>
-          <div className="text-sm font-semibold">Neighborhood Heat Risk Index</div>
+          <div className="text-sm font-bold">Neighborhood Heat Risk Index</div>
         </div>
-        <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+        <div className="rounded-xl border border-primary/15 bg-primary/8 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-primary">
           {ranked.length} of {wards.length} zones
         </div>
       </div>
@@ -34,10 +34,10 @@ export function NeighborhoodTable({
         <table className="w-full text-sm">
           <thead className="sticky top-0 bg-card/95 backdrop-blur">
             <tr className="text-left font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-              <th className="px-4 py-2 font-normal">Ward</th>
-              <th className="px-4 py-2 font-normal">LST</th>
-              <th className="px-4 py-2 font-normal">Exposed</th>
-              <th className="px-4 py-2 font-normal">Risk</th>
+              <th className="px-5 py-3 font-bold">Ward</th>
+              <th className="px-5 py-3 font-bold">LST</th>
+              <th className="px-5 py-3 font-bold">Exposed</th>
+              <th className="px-5 py-3 font-bold">Risk</th>
             </tr>
           </thead>
           <tbody>
@@ -47,39 +47,41 @@ export function NeighborhoodTable({
                 <tr
                   key={w.id}
                   onClick={() => onSelect(w.id)}
-                  className={`cursor-pointer border-t border-border/40 transition-colors ${
-                    active ? "bg-primary/10" : "hover:bg-muted/40"
+                  className={`cursor-pointer border-t border-primary/6 transition-all ${
+                    active ? "bg-primary/10" : "hover:bg-primary/5"
                   }`}
                 >
-                  <td className="px-4 py-2.5">
-                    <div className="font-medium">{w.name}</div>
+                  <td className="px-5 py-3">
+                    <div className="font-bold">{w.name}</div>
                     <div className="font-mono text-[10px] text-muted-foreground">
                       NDVI {w.ndvi.toFixed(2)} · ISF {w.isf.toFixed(2)}
                     </div>
                   </td>
-                  <td className="px-4 py-2.5 font-mono tabular-nums" style={{ color: heatColor(w.lst) }}>
+                  <td className="px-5 py-3 font-mono font-bold tabular-nums" style={{ color: heatColor(w.lst) }}>
                     {w.lst.toFixed(1)}°
                   </td>
-                  <td className="px-4 py-2.5 font-mono tabular-nums text-muted-foreground">
+                  <td className="px-5 py-3 font-mono tabular-nums text-muted-foreground">
                     {(w.populationExposed / 1000).toFixed(0)}k
                   </td>
-                  <td className="px-4 py-2.5">
+                  <td className="px-5 py-3">
                     <div className="flex items-center gap-2">
-                      <div className="h-1.5 w-20 overflow-hidden rounded-full bg-muted">
+                      <div className="h-2 w-20 overflow-hidden rounded-full bg-muted/30">
                         <div
-                          className="h-full rounded-full"
+                          className="h-full rounded-full transition-all duration-500"
                           style={{
                             width: `${w.risk}%`,
                             background:
                               w.risk > 75
-                                ? "var(--heat-extreme)"
+                                ? "linear-gradient(90deg, var(--heat-hot), var(--heat-extreme))"
                                 : w.risk > 55
-                                ? "var(--heat-hot)"
+                                ? "linear-gradient(90deg, var(--heat-warm), var(--heat-hot))"
                                 : "var(--heat-warm)",
+                            boxShadow:
+                              w.risk > 75 ? "0 0 6px var(--heat-extreme)" : "none",
                           }}
                         />
                       </div>
-                      <span className="font-mono text-xs tabular-nums">{w.risk}</span>
+                      <span className="font-mono text-xs font-bold tabular-nums">{w.risk}</span>
                     </div>
                   </td>
                 </tr>
@@ -87,7 +89,7 @@ export function NeighborhoodTable({
             })}
             {ranked.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-xs text-muted-foreground">
+                <td colSpan={4} className="px-5 py-10 text-center text-xs text-muted-foreground">
                   No zones match your filter.
                 </td>
               </tr>
