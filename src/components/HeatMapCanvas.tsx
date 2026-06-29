@@ -53,36 +53,36 @@ export function HeatMapCanvas({
   const hottest = [...adjusted].sort((a, b) => b.lst - a.lst)[0];
 
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-primary/12 bg-[oklch(0.11_0.025_250)] grid-bg">
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-primary/20 space-panel grid-bg shadow-[0_0_30px_rgba(34,211,238,0.05)]">
       {/* Heat glow layer */}
-      <div className="pointer-events-none absolute inset-0 opacity-60">
+      <div className="pointer-events-none absolute inset-0 opacity-75">
         {adjusted.map((w) => (
           <div
             key={`glow-${w.id}`}
-            className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+            className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl mix-blend-screen"
             style={{
               left: `${w.x * 100}%`,
               top: `${w.y * 100}%`,
-              width: `${120 + Math.max(0, w.lst - 33) * 18}px`,
-              height: `${120 + Math.max(0, w.lst - 33) * 18}px`,
+              width: `${140 + Math.max(0, w.lst - 33) * 20}px`,
+              height: `${140 + Math.max(0, w.lst - 33) * 20}px`,
               background: `radial-gradient(circle, ${layerColor(layer, w)} 0%, transparent 70%)`,
-              opacity: 0.55,
+              opacity: 0.65,
             }}
           />
         ))}
       </div>
 
       {/* Scanline */}
-      <div className="pointer-events-none absolute inset-x-0 h-px animate-scanline bg-gradient-to-r from-transparent via-primary to-transparent opacity-40" />
+      <div className="pointer-events-none absolute inset-x-0 h-[2px] animate-scanline bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-60 mix-blend-screen shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
 
       {/* Top-left metadata */}
-      <div className="pointer-events-none absolute left-4 top-4 rounded-xl border border-primary/10 bg-card/30 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground backdrop-blur">
+      <div className="pointer-events-none absolute left-4 top-4 rounded-xl border border-primary/20 bg-background/50 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-primary/80 backdrop-blur-md shadow-lg">
         {lat} · {lon} · {cityLabel} · {satellite}
       </div>
 
       {/* Live ingest badge */}
       <div className="pointer-events-none absolute right-4 top-4">
-        <div className="flex items-center gap-2 rounded-xl border border-emerald-500/25 bg-emerald-500/8 px-3 py-1.5 backdrop-blur">
+        <div className="flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.15)]">
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -105,26 +105,26 @@ export function HeatMapCanvas({
             style={{ left: `${w.x * 100}%`, top: `${w.y * 100}%` }}
           >
             <div
-              className={`relative h-3.5 w-3.5 rounded-full ring-2 ring-background/50 transition-all ${
-                isSelected ? "scale-[1.6]" : "group-hover:scale-125"
+              className={`relative h-3.5 w-3.5 rounded-full ring-2 transition-all duration-300 ${
+                isSelected ? "scale-[1.8] ring-primary" : "ring-background/50 group-hover:scale-125 group-hover:ring-primary/50"
               }`}
               style={{
                 background: layerColor(layer, w),
-                boxShadow: isSelected ? `0 0 14px ${layerColor(layer, w)}` : `0 0 6px ${layerColor(layer, w)}`,
+                boxShadow: isSelected ? `0 0 20px ${layerColor(layer, w)}` : `0 0 8px ${layerColor(layer, w)}`,
               }}
             >
               {isHot && layer === "LST" && (
                 <div
-                  className="absolute inset-0 animate-pulse-heat rounded-full"
-                  style={{ background: layerColor(layer, w), filter: "blur(6px)" }}
+                  className="absolute inset-0 animate-pulse-heat rounded-full mix-blend-screen"
+                  style={{ background: layerColor(layer, w), filter: "blur(4px)" }}
                 />
               )}
             </div>
             <div
-              className={`mt-2 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-xl border px-2.5 py-1 font-mono text-[10px] backdrop-blur transition-all ${
+              className={`mt-2.5 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-xl border px-2.5 py-1 font-mono text-[10px] backdrop-blur-md transition-all duration-300 ${
                 isSelected
-                  ? "border-primary/40 bg-primary/20 text-foreground shadow-[0_0_10px_var(--primary)/15]"
-                  : "border-primary/10 bg-card/50 text-muted-foreground group-hover:text-foreground group-hover:border-primary/25"
+                  ? "border-primary/50 bg-primary/20 text-foreground shadow-[0_0_15px_rgba(34,211,238,0.2)]"
+                  : "border-primary/15 bg-card/60 text-muted-foreground group-hover:text-foreground group-hover:border-primary/30 group-hover:bg-primary/10"
               }`}
               style={{ marginLeft: "-2px" }}
             >
@@ -136,18 +136,18 @@ export function HeatMapCanvas({
       })}
 
       {/* Bottom bar */}
-      <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
-        <div className="rounded-xl border border-primary/10 bg-card/40 px-4 py-2.5 backdrop-blur">
-          <div className="mb-1.5 font-mono text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+      <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3 pointer-events-none">
+        <div className="rounded-xl border border-primary/20 bg-background/60 px-4 py-2.5 backdrop-blur-md shadow-lg">
+          <div className="mb-1.5 font-mono text-[9px] font-bold uppercase tracking-widest text-primary/60">
             Land Surface Temp (°C)
           </div>
           <div className="flex items-center gap-2">
             <div
-              className="h-2.5 w-40 rounded-full"
+              className="h-2 w-40 rounded-full"
               style={{
                 background:
                   "linear-gradient(90deg, var(--heat-cool), var(--heat-mild), var(--heat-warm), var(--heat-hot), var(--heat-extreme))",
-                boxShadow: "0 0 8px color-mix(in oklch, var(--heat-warm) 30%, transparent)",
+                boxShadow: "0 0 10px color-mix(in oklch, var(--heat-warm) 40%, transparent)",
               }}
             />
             <div className="flex w-40 justify-between font-mono text-[10px] font-bold text-muted-foreground">
@@ -158,13 +158,13 @@ export function HeatMapCanvas({
           </div>
         </div>
 
-        <div className="rounded-xl border border-primary/10 bg-card/40 px-4 py-2.5 text-right backdrop-blur">
-          <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+        <div className="rounded-xl border border-primary/20 bg-background/60 px-4 py-2.5 text-right backdrop-blur-md shadow-lg">
+          <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-primary/60">
             Hottest zone
           </div>
           <div className="mt-1 text-sm">
-            <span className="font-bold">{hottest.name}</span>
-            <span className="ml-2 font-mono font-bold" style={{ color: heatColor(hottest.lst) }}>
+            <span className="font-bold text-foreground">{hottest.name}</span>
+            <span className="ml-2 font-mono font-bold" style={{ color: heatColor(hottest.lst), textShadow: `0 0 10px ${heatColor(hottest.lst)}` }}>
               {hottest.lst.toFixed(1)}°C
             </span>
           </div>
