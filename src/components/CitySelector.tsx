@@ -38,13 +38,13 @@ export function CitySelector({
   }, [q]);
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative z-40">
       <button
         onClick={() => setOpen(!open)}
-        className="inline-flex items-center gap-2 rounded-xl border border-primary/20 bg-card/40 px-3.5 py-1.5 font-mono text-xs font-bold backdrop-blur transition-all hover:border-primary/40 hover:bg-primary/8"
+        className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-[#020814]/80 px-4 py-1.5 font-mono text-xs font-bold backdrop-blur-md transition-all hover:border-primary/40 hover:bg-primary/10 shadow-lg"
       >
-        <MapPin className="h-3.5 w-3.5 text-primary" />
-        <span>
+        <MapPin className="h-4 w-4 text-primary" />
+        <span className="text-white">
           {city.name}
           <span className="ml-2 text-[10px] uppercase tracking-widest text-muted-foreground">
             {city.state}
@@ -54,7 +54,7 @@ export function CitySelector({
       </button>
 
       {open && (
-        <div className="space-panel animate-fade-up absolute right-0 z-30 mt-2 w-80 overflow-hidden rounded-2xl p-2 shadow-2xl">
+        <div className="space-panel animate-fade-up absolute right-0 z-50 mt-2 w-80 overflow-hidden rounded-3xl p-2 shadow-2xl">
           <div className="relative px-1 pb-2">
             <Search className="absolute left-3.5 top-1/2 h-3 w-3 -translate-y-1/2 text-muted-foreground" />
             <input
