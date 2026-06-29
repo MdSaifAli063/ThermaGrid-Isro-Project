@@ -192,10 +192,21 @@ function Landing() {
         <div className="mx-auto max-w-7xl px-6 py-10">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-3">
-              <div className="relative h-8 w-8">
-                <div className="absolute inset-0 animate-glow-pulse rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 opacity-80" />
-                <div className="absolute inset-[2px] rounded-[6px] bg-background" />
-                <div className="absolute inset-[5px] rounded-md bg-gradient-to-br from-cyan-400 to-blue-600" />
+              <div className="relative flex h-8 w-8 items-center justify-center shrink-0">
+                {/* Outer Squircle Ring */}
+                <div className="absolute inset-0 rounded-[10px] border border-cyan-500/80 bg-background/20 shadow-[0_0_8px_rgba(34,211,238,0.25)]" />
+                {/* Inner Planet Radar Globe */}
+                <div className="relative h-5 w-5 rounded-full bg-gradient-to-b from-[#0a1e36] to-[#030914] border border-cyan-400/30 overflow-hidden shadow-[0_0_8px_rgba(34,211,238,0.5)] flex items-center justify-center">
+                  {/* Faint crosshairs */}
+                  <div className="absolute left-1/2 top-0 w-[0.5px] h-full bg-cyan-400/20" />
+                  <div className="absolute left-0 top-1/2 w-full h-[0.5px] bg-cyan-400/20" />
+                  {/* Tiny colored hotspot dots */}
+                  <div className="absolute h-1 w-1 rounded-full bg-[#ff0055] top-[25%] left-[30%] animate-pulse shadow-[0_0_3px_#ff0055]" />
+                  <div className="absolute h-1 w-1 rounded-full bg-[#ff0055] top-[60%] left-[65%] shadow-[0_0_3px_#ff0055]" />
+                  <div className="absolute h-1 w-1 rounded-full bg-orange-400 top-[35%] left-[60%] shadow-[0_0_3px_#fb923c]" />
+                  <div className="absolute h-1 w-1 rounded-full bg-emerald-400 top-[65%] left-[30%] shadow-[0_0_3px_#34d399]" />
+                  <div className="absolute h-1 w-1 rounded-full bg-emerald-400 top-[30%] left-[45%] shadow-[0_0_3px_#34d399]" />
+                </div>
               </div>
               <div>
                 <div className="text-sm font-bold tracking-tight">
@@ -229,10 +240,21 @@ function Nav() {
     <nav className="sticky top-0 z-50 border-b border-primary/12 bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-3">
-          <div className="relative h-8 w-8">
-            <div className="absolute inset-0 animate-glow-pulse rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 opacity-80" />
-            <div className="absolute inset-[2px] rounded-[6px] bg-background" />
-            <div className="absolute inset-[5px] rounded-md bg-gradient-to-br from-cyan-400 to-blue-600" />
+          <div className="relative flex h-8 w-8 items-center justify-center shrink-0">
+            {/* Outer Squircle Ring */}
+            <div className="absolute inset-0 rounded-[10px] border border-cyan-500/80 bg-background/20 shadow-[0_0_8px_rgba(34,211,238,0.25)]" />
+            {/* Inner Planet Radar Globe */}
+            <div className="relative h-5 w-5 rounded-full bg-gradient-to-b from-[#0a1e36] to-[#030914] border border-cyan-400/30 overflow-hidden shadow-[0_0_8px_rgba(34,211,238,0.5)] flex items-center justify-center">
+              {/* Faint crosshairs */}
+              <div className="absolute left-1/2 top-0 w-[0.5px] h-full bg-cyan-400/20" />
+              <div className="absolute left-0 top-1/2 w-full h-[0.5px] bg-cyan-400/20" />
+              {/* Tiny colored hotspot dots */}
+              <div className="absolute h-1 w-1 rounded-full bg-[#ff0055] top-[25%] left-[30%] animate-pulse shadow-[0_0_3px_#ff0055]" />
+              <div className="absolute h-1 w-1 rounded-full bg-[#ff0055] top-[60%] left-[65%] shadow-[0_0_3px_#ff0055]" />
+              <div className="absolute h-1 w-1 rounded-full bg-orange-400 top-[35%] left-[60%] shadow-[0_0_3px_#fb923c]" />
+              <div className="absolute h-1 w-1 rounded-full bg-emerald-400 top-[65%] left-[30%] shadow-[0_0_3px_#34d399]" />
+              <div className="absolute h-1 w-1 rounded-full bg-emerald-400 top-[30%] left-[45%] shadow-[0_0_3px_#34d399]" />
+            </div>
           </div>
           <div className="font-mono text-sm font-bold tracking-tight">
             Therma<span className="text-primary">Grid</span>
