@@ -4,6 +4,7 @@ import { z } from "zod";
 import { DashHeader } from "@/components/DashHeader";
 import { AIInsightsPanel } from "@/components/AIInsightsPanel";
 import { AI_DRIVERS, getCity, riskIndex } from "@/lib/heat-data";
+import { Activity, Brain } from "lucide-react";
 
 const searchSchema = z.object({
   city: fallback(z.string(), "bengaluru").default("bengaluru"),
@@ -28,40 +29,58 @@ function AnalysisPage() {
   const meanRisk = Math.round(city.wards.reduce((s, w) => s + riskIndex(w), 0) / city.wards.length);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground star-bg">
       <DashHeader cityId={cityId} />
-      <main className="mx-auto max-w-[1600px] space-y-5 px-6 py-6">
-        <div>
-          <h1 className="text-xl font-semibold">{city.name} · Driver Analysis</h1>
-          <p className="text-sm text-muted-foreground">
-            Gradient-boosted attribution + SHAP values across ward-level surface features.
-          </p>
+      <main className="mx-auto max-w-[1600px] space-y-6 px-6 py-6">
+        <div className="space-panel rounded-2xl p-5">
+          <div className="flex items-center gap-3">
+            <div className="rounded-xl bg-primary/12 p-2.5 text-primary">
+              <Brain className="h-5 w-5" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold tracking-tight text-gradient-space">{city.name} · Driver Analysis</h1>
+              <p className="text-xs text-muted-foreground mt-1">
+                Gradient-boosted attribution + SHAP values across ward-level surface features.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
-          <Tile label="Mean risk index" value={`${meanRisk}/100`} delta="composite weighting" />
-          <Tile label="Hottest ward" value={hottest.name} delta={`${hottest.lst.toFixed(1)}°C`} />
-          <Tile label="Coolest ward" value={coolest.name} delta={`${coolest.lst.toFixed(1)}°C`} />
+          <Tile label="Mean risk index" value={`${meanRisk}/100`} delta="composite weighting" tone="warn" />
+          <Tile label="Hottest ward" value={hottest.name} delta={`${hottest.lst.toFixed(1)}°C`} tone="hot" />
+          <Tile label="Coolest ward" value={coolest.name} delta={`${coolest.lst.toFixed(1)}°C`} tone="cool" />
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-[1fr_360px]">
-          <div className="glass-panel rounded-lg p-5">
-            <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-              Global feature importance · SHAP
+        <div className="grid gap-5 lg:grid-cols-[1fr_380px]">
+          <div className="space-panel rounded-2xl p-5">
+            <div className="mb-4 flex items-center gap-3">
+              <div className="rounded-xl bg-primary/12 p-2.5 text-primary">
+                <Activity className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  Global feature importance · SHAP
+                </div>
+                <div className="text-sm font-bold">What's driving the heat city-wide?</div>
+              </div>
             </div>
-            <div className="text-sm font-semibold">What's driving the heat city-wide?</div>
-            <div className="mt-4 space-y-3">
+            <div className="space-y-4">
               {AI_DRIVERS.map((d) => (
-                <div key={d.feature}>
+                <div key={d.feature} className="rounded-xl border border-primary/8 bg-card/20 p-4 transition-all hover:border-primary/20">
                   <div className="flex items-center justify-between text-sm">
-                    <span>{d.feature}</span>
-                    <span className="font-mono tabular-nums text-primary">+{(d.impact * 100).toFixed(0)}%</span>
+                    <span className="font-bold">{d.feature}</span>
+                    <span className="font-mono font-bold text-primary">+{(d.impact * 100).toFixed(0)}%</span>
                   </div>
-                  <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
-                    <div className="h-full bg-gradient-to-r from-primary to-accent" style={{ width: `${d.impact * 250}%` }} />
+                  <div className="mt-2.5 h-2 overflow-hidden rounded-full bg-muted/30">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
+                      style={{ width: `${d.impact * 250}%`, boxShadow: "0 0 8px var(--primary)" }}
+                    />
                   </div>
-                  <div className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                    Confidence {d.confidence}% · {d.direction}
+                  <div className="mt-2 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
+                    <span>Confidence {d.confidence}%</span>
+                    <span>{d.direction}</span>
                   </div>
                 </div>
               ))}
@@ -74,12 +93,25 @@ function AnalysisPage() {
   );
 }
 
-function Tile({ label, value, delta }: { label: string; value: string; delta: string }) {
+function Tile({
+  label, value, delta, tone
+}: {
+  label: string; value: string; delta: string;
+  tone: "warn" | "hot" | "cool";
+}) {
+  const colorMap = {
+    warn: "text-[var(--heat-warm)] bg-[var(--heat-warm)]/12",
+    hot: "text-[var(--heat-hot)] bg-[var(--heat-hot)]/12",
+    cool: "text-[var(--heat-cool)] bg-[var(--heat-cool)]/12",
+  }[tone];
+
   return (
-    <div className="glass-panel rounded-lg p-4">
+    <div className="space-panel group rounded-2xl p-5 transition-all hover:shadow-[0_0_15px_var(--primary)/10]">
       <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{label}</div>
-      <div className="mt-1 truncate text-lg font-semibold">{value}</div>
-      <div className="font-mono text-[10px] text-accent">{delta}</div>
+      <div className="mt-2 truncate text-lg font-bold">{value}</div>
+      <div className={`mt-2 inline-flex items-center gap-1.5 rounded-lg border border-primary/10 bg-primary/5 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider ${colorMap.split(" ")[0]}`}>
+        {delta}
+      </div>
     </div>
   );
 }

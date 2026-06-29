@@ -3,7 +3,7 @@ import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { DashHeader } from "@/components/DashHeader";
 import { CITIES, generateAlerts, riskIndex, getCity } from "@/lib/heat-data";
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, Satellite } from "lucide-react";
 
 const searchSchema = z.object({
   city: fallback(z.string(), "bengaluru").default("bengaluru"),
@@ -60,14 +60,21 @@ function ReportsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground star-bg">
       <DashHeader cityId={cityId} />
-      <main className="mx-auto max-w-[1600px] space-y-5 px-6 py-6">
-        <div>
-          <h1 className="text-xl font-semibold">Reports & Exports</h1>
-          <p className="text-sm text-muted-foreground">
-            Download CSV bundles for offline analysis, GIS ingestion, or stakeholder briefings.
-          </p>
+      <main className="mx-auto max-w-[1600px] space-y-6 px-6 py-6">
+        <div className="space-panel rounded-2xl p-5">
+          <div className="flex items-center gap-3">
+            <div className="rounded-xl bg-primary/12 p-2.5 text-primary">
+              <FileText className="h-5 w-5" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold tracking-tight text-gradient-space">Reports & Exports</h1>
+              <p className="text-xs text-muted-foreground mt-1">
+                Download CSV bundles for offline analysis, GIS ingestion, or stakeholder briefings.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
@@ -88,22 +95,30 @@ function ReportsPage() {
           />
         </div>
 
-        <div className="glass-panel rounded-lg p-4">
-          <div className="mb-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-            City exports
+        <div className="space-panel rounded-2xl p-5">
+          <div className="mb-4 flex items-center gap-3">
+            <div className="rounded-xl bg-primary/12 p-2.5 text-primary">
+              <Satellite className="h-5 w-5" />
+            </div>
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                City roster
+              </div>
+              <div className="text-sm font-bold">Individual city pack downloads</div>
+            </div>
           </div>
-          <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {CITIES.map((c) => (
               <button
                 key={c.id}
                 onClick={() => exportCity(c.id)}
-                className="flex items-center justify-between rounded-md border border-border/40 bg-card/40 px-3 py-2 text-left text-sm transition-colors hover:bg-muted/40"
+                className="flex items-center justify-between rounded-xl border border-primary/10 bg-card/25 px-4 py-3 text-left text-sm transition-all hover:bg-primary/5 hover:border-primary/20"
               >
                 <span>
-                  <span className="font-medium">{c.name}</span>
-                  <span className="ml-2 font-mono text-[10px] text-muted-foreground">{c.wards.length} wards</span>
+                  <span className="font-bold">{c.name}</span>
+                  <span className="ml-3 font-mono text-[10px] text-muted-foreground/60">{c.wards.length} wards</span>
                 </span>
-                <Download className="h-3.5 w-3.5 text-muted-foreground" />
+                <Download className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
               </button>
             ))}
           </div>
@@ -117,17 +132,19 @@ function ReportCard({ title, desc, onClick }: { title: string; desc: string; onC
   return (
     <button
       onClick={onClick}
-      className="glass-panel group flex flex-col gap-3 rounded-lg p-4 text-left transition-colors hover:border-primary/60"
+      className="space-panel group flex flex-col gap-4 rounded-2xl p-5 text-left transition-all hover:border-primary/45 hover:shadow-[0_0_15px_var(--primary)/10]"
     >
-      <div className="flex items-center justify-between">
-        <div className="rounded-md bg-primary/15 p-2 text-primary">
-          <FileText className="h-4 w-4" />
+      <div className="flex w-full items-center justify-between">
+        <div className="rounded-xl bg-primary/12 p-2.5 text-primary">
+          <FileText className="h-5 w-5" />
         </div>
-        <Download className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
+        <div className="rounded-xl border border-primary/15 bg-card/40 p-2 transition-all group-hover:bg-primary/10">
+          <Download className="h-4.5 w-4.5 text-muted-foreground transition-colors group-hover:text-primary" />
+        </div>
       </div>
       <div>
-        <div className="text-sm font-semibold">{title}</div>
-        <p className="mt-1 text-xs text-muted-foreground">{desc}</p>
+        <div className="text-base font-bold text-gradient-space">{title}</div>
+        <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{desc}</p>
       </div>
     </button>
   );

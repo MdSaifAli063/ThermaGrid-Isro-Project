@@ -18,14 +18,16 @@ export function TimeHorizonControls({
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <div className="flex items-center gap-1 rounded-md border border-border/60 bg-card/60 p-1">
+      <div className="flex items-center gap-1 rounded-xl border border-primary/15 bg-card/40 p-1.5 backdrop-blur">
         {tods.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
             onClick={() => setTod(id)}
             title={label}
-            className={`inline-flex items-center gap-1.5 rounded px-2 py-1 font-mono text-[10px] uppercase tracking-widest transition-colors ${
-              tod === id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+            className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-widest transition-all ${
+              tod === id
+                ? "bg-primary text-primary-foreground shadow-[0_0_10px_var(--primary)/25]"
+                : "text-muted-foreground hover:text-foreground hover:bg-primary/8"
             }`}
           >
             <Icon className="h-3 w-3" />
@@ -34,14 +36,16 @@ export function TimeHorizonControls({
         ))}
       </div>
 
-      <div className="flex items-center gap-1 rounded-md border border-border/60 bg-card/60 p-1">
-        <Calendar className="ml-1 h-3 w-3 text-muted-foreground" />
+      <div className="flex items-center gap-1 rounded-xl border border-primary/15 bg-card/40 p-1.5 backdrop-blur">
+        <Calendar className="ml-1.5 h-3 w-3 text-muted-foreground" />
         {horizons.map((h) => (
           <button
             key={h}
             onClick={() => setHorizon(h)}
-            className={`rounded px-2 py-1 font-mono text-[10px] uppercase tracking-widest transition-colors ${
-              horizon === h ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
+            className={`rounded-lg px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-widest transition-all ${
+              horizon === h
+                ? "bg-accent text-accent-foreground shadow-[0_0_10px_var(--accent)/25]"
+                : "text-muted-foreground hover:text-foreground hover:bg-accent/8"
             }`}
           >
             {h === "now" ? "Today" : h}

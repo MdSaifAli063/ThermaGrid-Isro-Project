@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import {
   Activity, AlertTriangle, Download, Layers, Thermometer, Users, Search,
+  Satellite, Radio,
 } from "lucide-react";
 import { HeatMapCanvas, getWard, type MapLayer } from "@/components/HeatMapCanvas";
 import { AIInsightsPanel } from "@/components/AIInsightsPanel";
@@ -93,15 +94,17 @@ function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground star-bg">
       <DashHeader cityId={cityId} />
-      <div className="border-b border-border/60 bg-background/60">
-        <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-end gap-2 px-6 py-2">
+
+      {/* ── Sub-header Controls Bar ── */}
+      <div className="border-b border-primary/10 bg-background/50 backdrop-blur-lg">
+        <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-end gap-3 px-6 py-2.5">
           <CitySelector cityId={cityId} onChange={changeCity} />
           <TimeHorizonControls tod={tod} setTod={setTod} horizon={horizon} setHorizon={setHorizon} />
           <button
             onClick={exportCSV}
-            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium transition-colors hover:bg-muted"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-primary/20 bg-primary/8 px-3.5 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary transition-all hover:bg-primary/15 hover:shadow-[0_0_15px_var(--primary)/15]"
           >
             <Download className="h-3.5 w-3.5" />
             Export CSV
@@ -109,22 +112,32 @@ function Dashboard() {
         </div>
       </div>
 
-      <main className="mx-auto max-w-[1600px] space-y-5 px-6 py-6">
-        {/* City context bar */}
-        <div className="glass-panel flex flex-wrap items-center justify-between gap-3 rounded-lg px-4 py-3">
-          <div className="flex items-baseline gap-3">
-            <h1 className="text-xl font-semibold">{city.name}</h1>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-              {city.lat} · {city.lon} · {city.climate} · {(city.populationTotal / 1e6).toFixed(1)}M residents
-            </span>
-          </div>
-          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-accent">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-            {city.satellite} · {city.capturedOn} · {horizon === "now" ? "Today" : `Projection ${horizon}`} · {tod}
+      <main className="mx-auto max-w-[1600px] space-y-6 px-6 py-6">
+
+        {/* ── City Context Bar ── */}
+        <div className="space-panel rounded-2xl px-5 py-4">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-baseline gap-4">
+              <h1 className="text-2xl font-bold tracking-tight text-gradient-space">{city.name}</h1>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                {city.lat} · {city.lon} · {city.climate} · {(city.populationTotal / 1e6).toFixed(1)}M residents
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 rounded-xl border border-emerald-500/25 bg-emerald-500/8 px-3 py-1.5">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                </span>
+                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-emerald-400">
+                  {city.satellite} · {city.capturedOn} · {horizon === "now" ? "Today" : `Projection ${horizon}`} · {tod}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* KPI strip */}
+        {/* ── KPI Strip ── */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <KPI icon={Thermometer} label="Mean LST" value={`${meanLST.toFixed(1)}°C`} delta={horizon === "now" ? "Live observation" : `+${horizonDelta.toFixed(1)}°C climate drift`} tone="warn" />
           <KPI icon={Activity} label="Hottest ward" value={hottest.name} delta={`${hottest.lst.toFixed(1)}°C peak`} tone="hot" />
@@ -132,16 +145,16 @@ function Dashboard() {
           <KPI icon={AlertTriangle} label="Active alerts" value={String(totalAlerts)} delta="zones > 46°C" tone="alert" />
         </div>
 
-        {/* Map + Insights */}
-        <div className="grid gap-5 lg:grid-cols-[1fr_360px]">
+        {/* ── Map + Insights ── */}
+        <div className="grid gap-5 lg:grid-cols-[1fr_380px]">
           <div className="space-y-5">
-            <div className="glass-panel rounded-lg p-4">
-              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <div className="space-panel rounded-2xl p-5">
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                     Thermal map · LST overlay
                   </div>
-                  <div className="text-sm font-semibold">{city.name} thermal stack</div>
+                  <div className="text-base font-bold">{city.name} thermal stack</div>
                 </div>
                 <LayerSwitcher value={layer} onChange={setLayer} />
               </div>
@@ -160,15 +173,15 @@ function Dashboard() {
             </div>
 
             {selected && (
-              <div className="glass-panel rounded-lg p-5">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <div className="space-panel rounded-2xl p-5">
+                <div className="flex flex-wrap items-baseline justify-between gap-3">
                   <div>
                     <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                       Inspecting zone
                     </div>
-                    <div className="text-2xl font-semibold">{selected.name}</div>
+                    <div className="text-2xl font-bold text-gradient-space">{selected.name}</div>
                   </div>
-                  <div className="flex flex-wrap gap-6 font-mono text-xs text-muted-foreground">
+                  <div className="flex flex-wrap gap-6">
                     <Detail label="LST" value={`${selected.lst.toFixed(1)}°C`} />
                     <Detail label="NDVI" value={selected.ndvi.toFixed(2)} />
                     <Detail label="Albedo" value={selected.albedo.toFixed(2)} />
@@ -184,27 +197,27 @@ function Dashboard() {
           <AIInsightsPanel ward={selected} />
         </div>
 
-        {/* Scenario simulator */}
+        {/* ── Scenario Simulator ── */}
         <ScenarioSimulator baselineLST={selected?.lst ?? meanLST} />
 
-        {/* Trend + Alerts */}
+        {/* ── Trend + Alerts ── */}
         <div className="grid gap-5 lg:grid-cols-[1.3fr_1fr]">
           <LSTTrendChart baseline={meanLST} label={city.name} />
           <AlertsFeed alerts={alerts} onSelectWard={setSelectedId} />
         </div>
 
-        {/* Cooling chart + filterable ward table */}
+        {/* ── Cooling chart + filterable ward table ── */}
         <div className="grid gap-5 lg:grid-cols-[1.1fr_1fr]">
           <CoolingStrategyChart />
 
-          <div className="space-y-2">
+          <div className="space-y-3">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+              <Search className="absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
               <input
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 placeholder="Filter wards…"
-                className="w-full rounded-md border border-border bg-card/60 py-2 pl-9 pr-3 text-sm placeholder:text-muted-foreground focus:border-primary focus:outline-none"
+                className="w-full rounded-xl border border-primary/15 bg-card/40 py-2.5 pl-10 pr-4 font-mono text-sm text-foreground placeholder:text-muted-foreground backdrop-blur focus:border-primary/40 focus:outline-none focus:shadow-[0_0_12px_var(--primary)/12]"
               />
             </div>
             <NeighborhoodTable
@@ -218,27 +231,34 @@ function Dashboard() {
 
         <MaterialTable />
 
-        {/* City compare */}
+        {/* ── City Compare ── */}
         <CityCompareStrip />
 
-        <footer className="pt-4 pb-8 text-center font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-          Data sources: Landsat-9 · Sentinel-2 · ISRO Bhuvan · MOSDAC · OSM · Census 2021
+        <footer className="pt-6 pb-10 text-center">
+          <div className="inline-flex items-center gap-3 rounded-2xl border border-primary/10 bg-card/30 px-6 py-3 backdrop-blur">
+            <Satellite className="h-4 w-4 text-primary/60" />
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              Data sources: Landsat-9 · Sentinel-2 · ISRO Bhuvan · MOSDAC · OSM · Census 2021
+            </span>
+            <Radio className="h-4 w-4 text-primary/60" />
+          </div>
         </footer>
       </main>
     </div>
   );
 }
 
+/* ─── City Compare Strip ─── */
 function CityCompareStrip() {
   return (
-    <div className="glass-panel rounded-lg p-4">
-      <div className="mb-3">
+    <div className="space-panel rounded-2xl p-5">
+      <div className="mb-4">
         <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           Cross-city benchmark
         </div>
-        <div className="text-sm font-semibold">Mean LST across Indian metros</div>
+        <div className="text-base font-bold">Mean LST across Indian metros</div>
       </div>
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         {[...CITIES].sort((a, b) => b.meanLST - a.meanLST).map((c) => {
           const pct = Math.min(100, ((c.meanLST - 36) / 16) * 100);
           const color =
@@ -247,12 +267,19 @@ function CityCompareStrip() {
             c.meanLST >= 43 ? "var(--heat-warm)" :
             "var(--heat-mild)";
           return (
-            <div key={c.id} className="flex items-center gap-3">
-              <div className="w-28 shrink-0 text-sm font-medium">{c.name}</div>
-              <div className="relative h-2 flex-1 overflow-hidden rounded-full bg-muted">
-                <div className="h-full rounded-full" style={{ width: `${pct}%`, background: color }} />
+            <div key={c.id} className="group flex items-center gap-3 rounded-xl px-3 py-2 transition-all hover:bg-primary/5">
+              <div className="w-32 shrink-0 text-sm font-bold group-hover:text-gradient-space transition-all">{c.name}</div>
+              <div className="relative h-2.5 flex-1 overflow-hidden rounded-full bg-muted/40">
+                <div
+                  className="h-full rounded-full transition-all duration-700"
+                  style={{
+                    width: `${pct}%`,
+                    background: `linear-gradient(90deg, ${color}, color-mix(in oklch, ${color} 70%, transparent))`,
+                    boxShadow: `0 0 8px ${color}`,
+                  }}
+                />
               </div>
-              <div className="w-16 text-right font-mono text-xs tabular-nums" style={{ color }}>
+              <div className="w-16 text-right font-mono text-xs font-bold tabular-nums" style={{ color }}>
                 {c.meanLST.toFixed(1)}°C
               </div>
               <div className="hidden w-24 text-right font-mono text-[10px] uppercase tracking-widest text-muted-foreground md:block">
@@ -266,52 +293,58 @@ function CityCompareStrip() {
   );
 }
 
+/* ─── KPI Card ─── */
 function KPI({
   icon: Icon, label, value, delta, tone,
 }: {
   icon: typeof Activity; label: string; value: string; delta: string;
   tone: "warn" | "hot" | "muted" | "alert";
 }) {
-  const toneClass = {
-    warn:  "text-[var(--heat-warm)] bg-[var(--heat-warm)]/10",
-    hot:   "text-[var(--heat-hot)] bg-[var(--heat-hot)]/10",
-    muted: "text-accent bg-accent/10",
-    alert: "text-[var(--heat-extreme)] bg-[var(--heat-extreme)]/10",
+  const toneMap = {
+    warn:  { bg: "bg-[var(--heat-warm)]/12", text: "text-[var(--heat-warm)]", glow: "var(--heat-warm)" },
+    hot:   { bg: "bg-[var(--heat-hot)]/12",  text: "text-[var(--heat-hot)]",  glow: "var(--heat-hot)" },
+    muted: { bg: "bg-primary/12",            text: "text-primary",            glow: "var(--primary)" },
+    alert: { bg: "bg-[var(--heat-extreme)]/12", text: "text-[var(--heat-extreme)]", glow: "var(--heat-extreme)" },
   }[tone];
+
   return (
-    <div className="glass-panel flex items-center gap-4 rounded-lg p-4">
-      <div className={`rounded-md p-2.5 ${toneClass}`}>
-        <Icon className="h-4 w-4" />
+    <div className="space-panel group flex items-center gap-4 rounded-2xl p-5 transition-all hover:shadow-[0_0_20px_var(--primary)/10]">
+      <div className={`rounded-xl p-3 ${toneMap.bg} ${toneMap.text}`} style={{ boxShadow: `0 0 12px color-mix(in oklch, ${toneMap.glow} 20%, transparent)` }}>
+        <Icon className="h-5 w-5" />
       </div>
       <div className="min-w-0 flex-1">
         <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{label}</div>
-        <div className="truncate text-lg font-semibold">{value}</div>
-        <div className="font-mono text-[10px] text-muted-foreground">{delta}</div>
+        <div className="truncate text-xl font-bold tracking-tight">{value}</div>
+        <div className="font-mono text-[10px] text-muted-foreground/80">{delta}</div>
       </div>
     </div>
   );
 }
 
+/* ─── Detail Chip ─── */
 function Detail({ label, value }: { label: string; value: string }) {
   return (
-    <div>
-      <div className="text-[9px] uppercase tracking-widest">{label}</div>
-      <div className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">{value}</div>
+    <div className="rounded-xl border border-primary/10 bg-card/30 px-3 py-2 backdrop-blur">
+      <div className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">{label}</div>
+      <div className="mt-0.5 text-sm font-bold tabular-nums text-foreground">{value}</div>
     </div>
   );
 }
 
+/* ─── Layer Switcher ─── */
 function LayerSwitcher({ value, onChange }: { value: MapLayer; onChange: (l: MapLayer) => void }) {
   const layers: MapLayer[] = ["LST", "NDVI", "Albedo", "ISF"];
   return (
-    <div className="flex items-center gap-1 rounded-md border border-border/60 bg-card/60 p-1">
-      <Layers className="ml-1 h-3 w-3 text-muted-foreground" />
+    <div className="flex items-center gap-1 rounded-xl border border-primary/15 bg-card/40 p-1.5 backdrop-blur">
+      <Layers className="ml-1 h-3.5 w-3.5 text-muted-foreground" />
       {layers.map((l) => (
         <button
           key={l}
           onClick={() => onChange(l)}
-          className={`rounded px-2 py-1 font-mono text-[10px] uppercase tracking-widest transition-colors ${
-            value === l ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+          className={`rounded-lg px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-widest transition-all ${
+            value === l
+              ? "bg-primary text-primary-foreground shadow-[0_0_10px_var(--primary)/25]"
+              : "text-muted-foreground hover:text-foreground hover:bg-primary/8"
           }`}
         >
           {l}
