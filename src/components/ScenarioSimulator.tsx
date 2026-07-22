@@ -65,8 +65,8 @@ export function ScenarioSimulator({ baselineLST }: { baselineLST: number }) {
   const projected = baselineLST - deltaT;
 
   return (
-    <div className="space-panel rounded-2xl p-5">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="space-panel rounded-2xl p-4 sm:p-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
           <div className="rounded-xl bg-accent/12 p-2.5 text-accent" style={{ boxShadow: "0 0 12px color-mix(in oklch, var(--accent) 20%, transparent)" }}>
             <Sliders className="h-5 w-5" />
@@ -78,7 +78,7 @@ export function ScenarioSimulator({ baselineLST }: { baselineLST: number }) {
             <div className="text-sm font-bold">Scenario Simulator</div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
           <div className="flex rounded-xl border border-primary/15 bg-card/40 p-1 backdrop-blur">
             {(["now", "2030", "2050"] as Horizon[]).map((h) => (
               <button
@@ -118,7 +118,7 @@ export function ScenarioSimulator({ baselineLST }: { baselineLST: number }) {
             Projected LST · {horizon === "now" ? "today" : horizon}
           </div>
           <div className="mt-2 flex items-baseline gap-3">
-            <div className="text-4xl font-bold tabular-nums tracking-tight">
+            <div className="text-3xl font-bold tabular-nums tracking-tight sm:text-4xl">
               {projected.toFixed(1)}
               <span className="text-lg text-muted-foreground">°C</span>
             </div>
@@ -148,7 +148,7 @@ export function ScenarioSimulator({ baselineLST }: { baselineLST: number }) {
             + {(vals.paint / 100).toFixed(2)}·2.1 + {(vals.walls / 100).toFixed(2)}·1.6 + {(vals.water / 100).toFixed(2)}·1.4) × {HORIZON_MULT[horizon]}
           </div>
 
-          <div className="mt-5 grid grid-cols-3 gap-3">
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
             <Outcome label="Capex" value={`₹${cost.toFixed(0)}L`} />
             <Outcome label="CO₂ offset" value={`${co2.toFixed(2)} kt/yr`} />
             <Outcome label="Benefited" value={`${(beneficiaries / 1000).toFixed(1)}k`} />
