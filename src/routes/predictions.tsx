@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { DashHeader } from "@/components/DashHeader";
+import { AppBackground } from "@/components/AppBackground";
 import { LSTTrendChart } from "@/components/LSTTrendChart";
 import { ScenarioSimulator } from "@/components/ScenarioSimulator";
 import { getCity, HORIZON_DELTA } from "@/lib/heat-data";
@@ -29,9 +30,10 @@ function PredictionsPage() {
   const proj2050 = city.meanLST + HORIZON_DELTA["2050"];
 
   return (
-    <div className="min-h-screen bg-background text-foreground star-bg">
+    <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
+      <AppBackground />
       <DashHeader cityId={cityId} />
-      <main className="mx-auto max-w-[1600px] space-y-6 px-6 py-6">
+      <main className="mx-auto max-w-[1600px] space-y-4 px-4 py-4 sm:space-y-6 sm:px-6 sm:py-6">
         <div className="space-panel rounded-2xl p-5">
           <div className="flex items-center gap-3">
             <div className="rounded-xl bg-primary/12 p-2.5 text-primary">
