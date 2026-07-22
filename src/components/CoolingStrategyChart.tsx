@@ -43,11 +43,11 @@ export function CoolingStrategyChart() {
       <div className="h-[280px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={COOLING_STRATEGIES} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-            <CartesianGrid stroke="oklch(0.22 0.03 250)" strokeDasharray="2 4" vertical={false} />
+            <CartesianGrid stroke="var(--chart-grid)" strokeDasharray="2 4" vertical={false} />
             <XAxis
               dataKey="name"
-              tick={{ fill: "oklch(0.60 0.03 250)", fontSize: 10, fontWeight: 600 }}
-              axisLine={{ stroke: "oklch(0.22 0.03 250)" }}
+              tick={{ fill: "var(--chart-axis)", fontSize: 10, fontWeight: 600 }}
+              axisLine={{ stroke: "var(--chart-grid)" }}
               tickLine={false}
               interval={0}
               angle={-15}
@@ -55,22 +55,22 @@ export function CoolingStrategyChart() {
               height={60}
             />
             <YAxis
-              tick={{ fill: "oklch(0.60 0.03 250)", fontSize: 10, fontWeight: 600 }}
-              axisLine={{ stroke: "oklch(0.22 0.03 250)" }}
+              tick={{ fill: "var(--chart-axis)", fontSize: 10, fontWeight: 600 }}
+              axisLine={{ stroke: "var(--chart-grid)" }}
               tickLine={false}
               unit="°"
             />
             <Tooltip
-              cursor={{ fill: "oklch(0.22 0.03 250 / 0.4)" }}
+              cursor={{ fill: "var(--chart-cursor)" }}
               contentStyle={{
-                background: "oklch(0.16 0.025 250)",
-                border: "1px solid oklch(0.25 0.06 250)",
+                background: "var(--chart-tooltip-bg)",
+                border: "1px solid var(--chart-tooltip-border)",
                 borderRadius: 12,
                 fontSize: 12,
                 fontWeight: 600,
-                boxShadow: "0 4px 24px oklch(0.10 0.02 250 / 0.5)",
+                boxShadow: "0 4px 24px color-mix(in oklch, var(--background) 50%, transparent)",
               }}
-              labelStyle={{ color: "oklch(0.96 0.01 240)" }}
+              labelStyle={{ color: "var(--chart-tooltip-fg)" }}
               formatter={(v: number) => [`${v}°C reduction`, "ΔT"]}
             />
             <Bar dataKey="reduction" radius={[8, 8, 0, 0]}>
