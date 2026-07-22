@@ -38,23 +38,24 @@ export function CitySelector({
   }, [q]);
 
   return (
-    <div ref={ref} className="relative z-40">
+    <div ref={ref} className="relative z-40 w-full min-w-0 sm:w-auto">
       <button
+        type="button"
         onClick={() => setOpen(!open)}
-        className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-[#020814]/80 px-4 py-1.5 font-mono text-xs font-bold backdrop-blur-md transition-all hover:border-primary/40 hover:bg-primary/10 shadow-lg"
+        className="inline-flex min-h-11 w-full max-w-full items-center gap-2 rounded-full border border-primary/20 bg-card/80 px-3 py-2 font-mono text-xs font-bold backdrop-blur-md shadow-lg transition-all hover:border-primary/40 hover:bg-primary/10 sm:w-auto sm:px-4 sm:py-2.5"
       >
-        <MapPin className="h-4 w-4 text-primary" />
-        <span className="text-white">
+        <MapPin className="h-4 w-4 shrink-0 text-primary" />
+        <span className="min-w-0 truncate text-left text-foreground">
           {city.name}
-          <span className="ml-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+          <span className="ml-2 hidden text-[10px] uppercase tracking-widest text-muted-foreground sm:inline">
             {city.state}
           </span>
         </span>
-        <ChevronDown className={`h-3 w-3 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
+        <ChevronDown className={`h-3 w-3 shrink-0 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
 
       {open && (
-        <div className="space-panel animate-fade-up absolute right-0 z-50 mt-2 w-80 overflow-hidden rounded-3xl p-2 shadow-2xl">
+        <div className="space-panel animate-fade-up absolute left-0 right-0 z-50 mt-2 w-auto overflow-hidden rounded-3xl p-2 shadow-2xl sm:left-auto sm:right-0 sm:w-80">
           <div className="relative px-1 pb-2">
             <Search className="absolute left-3.5 top-1/2 h-3 w-3 -translate-y-1/2 text-muted-foreground" />
             <input
