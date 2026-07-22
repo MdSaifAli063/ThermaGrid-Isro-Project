@@ -3,6 +3,7 @@ import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { useMemo } from "react";
 import { DashHeader } from "@/components/DashHeader";
+import { AppBackground } from "@/components/AppBackground";
 import { AlertsFeed } from "@/components/AlertsFeed";
 import { CITIES, generateAlerts } from "@/lib/heat-data";
 import { AlertTriangle, Bell, ArrowLeft } from "lucide-react";
@@ -30,9 +31,10 @@ function AlertsPage() {
   const moderate = all.filter((a) => a.severity === "moderate").length;
 
   return (
-    <div className="min-h-screen bg-background text-foreground star-bg">
+    <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
+      <AppBackground />
       <DashHeader cityId={city} />
-      <main className="mx-auto max-w-[1600px] space-y-6 px-6 py-6">
+      <main className="mx-auto max-w-[1600px] space-y-4 px-4 py-4 sm:space-y-6 sm:px-6 sm:py-6">
         <div className="space-panel rounded-2xl p-5">
           <div className="flex items-center gap-3">
             <div className="rounded-xl bg-[var(--heat-extreme)]/12 p-2.5 text-[var(--heat-extreme)]" style={{ boxShadow: "0 0 12px color-mix(in oklch, var(--heat-extreme) 20%, transparent)" }}>
