@@ -52,7 +52,7 @@ export function MaterialTable() {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+        <table className="w-full min-w-[640px] text-sm">
           <thead className="bg-card/50">
             <tr>
               <Th k="name" label="Material" />
