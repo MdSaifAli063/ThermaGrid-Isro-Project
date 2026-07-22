@@ -5,6 +5,7 @@ import {
   Search,
   Globe2,
   Zap,
+  Menu,
   Thermometer,
   Satellite,
   Cpu,
@@ -12,6 +13,15 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { CITIES, STATES } from "@/lib/heat-data";
+import { AppBackground } from "@/components/AppBackground";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,19 +40,12 @@ export const Route = createFileRoute("/")({
 function Landing() {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
-      {/* Starfield layer */}
-      <div className="pointer-events-none fixed inset-0 star-bg opacity-70" />
-      {/* Grid layer */}
-      <div className="pointer-events-none fixed inset-0 grid-bg opacity-15" />
-      {/* Glow blobs */}
-      <div className="pointer-events-none fixed left-[-20%] top-[-10%] h-[700px] w-[700px] rounded-full bg-cyan-500/[0.06] blur-[180px]" />
-      <div className="pointer-events-none fixed right-[-10%] top-[10%] h-[500px] w-[500px] rounded-full bg-blue-600/[0.05] blur-[160px]" />
-      <div className="pointer-events-none fixed bottom-[-10%] left-[30%] h-[400px] w-[400px] rounded-full bg-cyan-400/[0.04] blur-[140px]" />
+      <AppBackground variant="landing" />
 
       <Nav />
 
       {/* ─── HERO ─── */}
-      <section className="relative mx-auto max-w-7xl px-6 pt-20 pb-16">
+      <section className="relative mx-auto max-w-7xl px-4 pt-12 pb-12 sm:px-6 sm:pt-20 sm:pb-16">
         {/* scan-line on top */}
         <div className="pointer-events-none absolute left-0 top-0 h-full w-full overflow-hidden">
           <div
@@ -67,7 +70,7 @@ function Landing() {
 
             {/* heading */}
             <div className="space-y-3">
-              <h1 className="font-mono text-[2.6rem] font-extrabold uppercase leading-[1.06] tracking-tight text-white md:text-5xl lg:text-[3.4rem]">
+              <h1 className="font-mono text-3xl font-extrabold uppercase leading-[1.06] tracking-tight text-foreground sm:text-[2.6rem] md:text-5xl lg:text-[3.4rem]">
                 The Observatory
                 <br />
                 <span className="text-gradient-space">of the Surface</span>
@@ -99,7 +102,7 @@ function Landing() {
             </div>
 
             {/* 2-column stat blocks */}
-            <div className="grid grid-cols-2 gap-5 border-t border-border/30 pt-6">
+            <div className="grid grid-cols-1 gap-4 border-t border-border/30 pt-6 sm:grid-cols-2 sm:gap-5">
               <StatBlock
                 icon={<Satellite className="h-4 w-4" />}
                 title="Sensor Integration"
@@ -133,7 +136,7 @@ function Landing() {
       </section>
 
       {/* ─── CAPABILITY CARDS ─── */}
-      <section id="capabilities" className="mx-auto max-w-7xl px-6 pb-16">
+      <section id="capabilities" className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 sm:pb-16">
         <div className="mb-8 flex items-center gap-3">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent to-border/40" />
           <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -183,13 +186,13 @@ function Landing() {
       </div>
 
       {/* ─── CITY PICKER ─── */}
-      <section id="cities" className="mx-auto max-w-7xl px-6 py-20 pb-28">
+      <section id="cities" className="mx-auto max-w-7xl px-4 py-14 pb-20 sm:px-6 sm:py-20 sm:pb-28">
         <StatePicker />
       </section>
 
       {/* ─── FOOTER ─── */}
       <footer className="border-t border-primary/15 bg-card/20 backdrop-blur-lg">
-        <div className="mx-auto max-w-7xl px-6 py-10">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-3">
               <div className="relative flex h-8 w-8 items-center justify-center shrink-0">
@@ -236,27 +239,24 @@ function Landing() {
    NAV
 ────────────────────────────────────────────── */
 function Nav() {
+  const [open, setOpen] = useState(false);
+
   return (
     <nav className="sticky top-0 z-50 border-b border-primary/12 bg-background/70 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-3">
-          <div className="relative flex h-8 w-8 items-center justify-center shrink-0">
-            {/* Outer Squircle Ring */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:px-6 sm:py-4">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+          <div className="relative flex h-8 w-8 shrink-0 items-center justify-center">
             <div className="absolute inset-0 rounded-[10px] border border-cyan-500/80 bg-background/20 shadow-[0_0_8px_rgba(34,211,238,0.25)]" />
-            {/* Inner Planet Radar Globe */}
-            <div className="relative h-5 w-5 rounded-full bg-gradient-to-b from-[#0a1e36] to-[#030914] border border-cyan-400/30 overflow-hidden shadow-[0_0_8px_rgba(34,211,238,0.5)] flex items-center justify-center">
-              {/* Faint crosshairs */}
-              <div className="absolute left-1/2 top-0 w-[0.5px] h-full bg-cyan-400/20" />
-              <div className="absolute left-0 top-1/2 w-full h-[0.5px] bg-cyan-400/20" />
-              {/* Tiny colored hotspot dots */}
-              <div className="absolute h-1 w-1 rounded-full bg-[#ff0055] top-[25%] left-[30%] animate-pulse shadow-[0_0_3px_#ff0055]" />
-              <div className="absolute h-1 w-1 rounded-full bg-[#ff0055] top-[60%] left-[65%] shadow-[0_0_3px_#ff0055]" />
-              <div className="absolute h-1 w-1 rounded-full bg-orange-400 top-[35%] left-[60%] shadow-[0_0_3px_#fb923c]" />
-              <div className="absolute h-1 w-1 rounded-full bg-emerald-400 top-[65%] left-[30%] shadow-[0_0_3px_#34d399]" />
-              <div className="absolute h-1 w-1 rounded-full bg-emerald-400 top-[30%] left-[45%] shadow-[0_0_3px_#34d399]" />
+            <div className="relative flex h-5 w-5 items-center justify-center overflow-hidden rounded-full border border-cyan-400/30 bg-gradient-to-b from-[#0a1e36] to-[#030914] shadow-[0_0_8px_rgba(34,211,238,0.5)]">
+              <div className="absolute left-1/2 top-0 h-full w-[0.5px] bg-cyan-400/20" />
+              <div className="absolute left-0 top-1/2 h-[0.5px] w-full bg-cyan-400/20" />
+              <div className="absolute left-[30%] top-[25%] h-1 w-1 animate-pulse rounded-full bg-[#ff0055] shadow-[0_0_3px_#ff0055]" />
+              <div className="absolute left-[65%] top-[60%] h-1 w-1 rounded-full bg-[#ff0055] shadow-[0_0_3px_#ff0055]" />
+              <div className="absolute left-[60%] top-[35%] h-1 w-1 rounded-full bg-orange-400 shadow-[0_0_3px_#fb923c]" />
+              <div className="absolute left-[30%] top-[65%] h-1 w-1 rounded-full bg-emerald-400 shadow-[0_0_3px_#34d399]" />
             </div>
           </div>
-          <div className="font-mono text-sm font-bold tracking-tight">
+          <div className="truncate font-mono text-sm font-bold tracking-tight">
             Therma<span className="text-primary">Grid</span>
           </div>
         </div>
@@ -267,14 +267,46 @@ function Nav() {
           <Link to="/dashboard" className="transition-colors hover:text-primary">Dashboard</Link>
         </div>
 
-        <Link
-          to="/dashboard"
-          className="group inline-flex items-center gap-1.5 rounded-xl border border-primary/30 bg-primary/12 px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-primary transition-all hover:bg-primary hover:text-primary-foreground"
-        >
-          <Zap className="h-3 w-3" />
-          Launch Control
-          <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-        </Link>
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          <ThemeToggle />
+          <Link
+            to="/dashboard"
+            className="group inline-flex min-h-10 items-center gap-1.5 rounded-xl border border-primary/30 bg-primary/12 px-3 py-2 font-mono text-xs font-bold uppercase tracking-wider text-primary transition-all hover:bg-primary hover:text-primary-foreground sm:px-4"
+          >
+            <Zap className="h-3 w-3" />
+            <span className="hidden sm:inline">Launch Control</span>
+            <span className="sm:hidden">Launch</span>
+            <ArrowRight className="hidden h-3 w-3 transition-transform group-hover:translate-x-0.5 sm:block" />
+          </Link>
+
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <button
+                type="button"
+                aria-label="Open menu"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border/60 bg-card/40 text-muted-foreground md:hidden"
+              >
+                <Menu className="h-5 w-5" />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[min(100vw-2rem,20rem)]">
+              <SheetHeader>
+                <SheetTitle className="text-left font-mono text-sm">Navigate</SheetTitle>
+              </SheetHeader>
+              <nav className="mt-6 flex flex-col gap-2 font-mono text-[11px] uppercase tracking-widest">
+                <a href="#capabilities" onClick={() => setOpen(false)} className="min-h-11 rounded-xl px-4 py-3 text-muted-foreground hover:bg-primary/10 hover:text-primary">
+                  Observatory
+                </a>
+                <a href="#cities" onClick={() => setOpen(false)} className="min-h-11 rounded-xl px-4 py-3 text-muted-foreground hover:bg-primary/10 hover:text-primary">
+                  Cities
+                </a>
+                <Link to="/dashboard" onClick={() => setOpen(false)} className="min-h-11 rounded-xl px-4 py-3 text-muted-foreground hover:bg-primary/10 hover:text-primary">
+                  Dashboard
+                </Link>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </nav>
   );
@@ -585,7 +617,7 @@ function StatePicker() {
             <Globe2 className="h-3.5 w-3.5" />
             Thermal City Index
           </div>
-          <h2 className="font-mono text-3xl font-extrabold uppercase tracking-tight md:text-4xl lg:text-5xl">
+          <h2 className="font-mono text-2xl font-extrabold uppercase tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
             Indian Metros &amp; Cities
             <br />
             <span className="text-gradient-space">Surveillance Lens.</span>
@@ -645,7 +677,7 @@ function StatePicker() {
               key={c.id}
               to="/dashboard"
               search={{ city: c.id }}
-              className="city-row group relative flex items-center overflow-hidden rounded-2xl border border-border/40 bg-card/30 p-5 backdrop-blur transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:bg-card/60 hover:shadow-lg hover:shadow-primary/5"
+              className="city-row group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-border/40 bg-card/30 p-4 backdrop-blur transition-all hover:border-primary/30 hover:bg-card/60 sm:flex-row sm:items-center sm:gap-0 sm:p-5 sm:hover:-translate-y-0.5 sm:hover:shadow-lg sm:hover:shadow-primary/5"
             >
               {/* Side heat accent bar */}
               <div
@@ -658,10 +690,9 @@ function StatePicker() {
                 style={{ background: `linear-gradient(to left, ${tone}, transparent)` }}
               />
 
-              {/* Col 1: city name + state + climate */}
-              <div className="relative min-w-0 flex-1 pl-4">
-                <div className="flex items-baseline gap-2">
-                  <span className="font-mono text-base font-extrabold uppercase tracking-wide text-foreground transition-colors group-hover:text-primary">
+              <div className="relative min-w-0 flex-1 pl-3 sm:pl-4">
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span className="font-mono text-sm font-extrabold uppercase tracking-wide text-foreground transition-colors group-hover:text-primary sm:text-base">
                     {c.name}
                   </span>
                   <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -691,31 +722,46 @@ function StatePicker() {
                 </span>
               </div>
 
-              {/* Col 4: heat badge */}
-              <div className="relative shrink-0 px-4">
-                <div
-                  className="rounded-full px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-widest"
-                  style={{
-                    background: `color-mix(in oklch, ${tone} 15%, transparent)`,
-                    color: tone,
-                    border: `1px solid color-mix(in oklch, ${tone} 30%, transparent)`,
-                  }}
-                >
-                  {label}
+              <div className="relative ml-0 flex w-full items-center justify-between gap-2 pl-3 sm:ml-4 sm:w-auto sm:justify-end sm:pl-0">
+                <div className="flex items-center gap-2 sm:hidden">
+                  <div
+                    className="rounded-full px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest"
+                    style={{
+                      background: `color-mix(in oklch, ${tone} 15%, transparent)`,
+                      color: tone,
+                      border: `1px solid color-mix(in oklch, ${tone} 30%, transparent)`,
+                    }}
+                  >
+                    {label}
+                  </div>
+                  <div
+                    className="font-mono text-xl font-black tabular-nums"
+                    style={{ color: tone, textShadow: `0 0 12px color-mix(in oklch, ${tone} 50%, transparent)` }}
+                  >
+                    {c.meanLST.toFixed(1)}°
+                  </div>
                 </div>
-              </div>
-
-              {/* Col 5: temperature */}
-              <div
-                className="relative shrink-0 font-mono text-2xl font-black tabular-nums"
-                style={{ color: tone, textShadow: `0 0 12px color-mix(in oklch, ${tone} 50%, transparent)` }}
-              >
-                {c.meanLST.toFixed(1)}°
-              </div>
-
-              {/* Col 6: arrow */}
-              <div className="relative ml-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary">
-                <ArrowRight className="h-4 w-4" />
+                <div className="hidden shrink-0 items-center gap-2 sm:flex">
+                  <div
+                    className="rounded-full px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-widest"
+                    style={{
+                      background: `color-mix(in oklch, ${tone} 15%, transparent)`,
+                      color: tone,
+                      border: `1px solid color-mix(in oklch, ${tone} 30%, transparent)`,
+                    }}
+                  >
+                    {label}
+                  </div>
+                  <div
+                    className="font-mono text-2xl font-black tabular-nums"
+                    style={{ color: tone, textShadow: `0 0 12px color-mix(in oklch, ${tone} 50%, transparent)` }}
+                  >
+                    {c.meanLST.toFixed(1)}°
+                  </div>
+                </div>
+                <div className="shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary">
+                  <ArrowRight className="h-4 w-4" />
+                </div>
               </div>
             </Link>
           );
@@ -733,7 +779,7 @@ function StatePicker() {
       )}
 
       {/* Footer row */}
-      <div className="mt-10 flex items-center justify-between border-t border-border/30 pt-6">
+      <div className="mt-10 flex flex-col gap-3 border-t border-border/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           Showing {visible.length} of {CITIES.length} cities · sorted A → Z
         </div>

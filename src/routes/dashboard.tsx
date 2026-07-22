@@ -9,6 +9,7 @@ import { AIInsightsPanel } from "@/components/AIInsightsPanel";
 import { CoolingStrategyChart } from "@/components/CoolingStrategyChart";
 import { ScenarioSimulator } from "@/components/ScenarioSimulator";
 import { DashHeader } from "@/components/DashHeader";
+import { AppBackground } from "@/components/AppBackground";
 import { NeighborhoodTable } from "@/components/NeighborhoodTable";
 import { MaterialTable } from "@/components/MaterialTable";
 import { CitySelector } from "@/components/CitySelector";
@@ -94,25 +95,26 @@ function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground star-bg">
+    <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
+      <AppBackground />
       <DashHeader cityId={cityId} />
 
       {/* ── Sub-header Controls Bar ── */}
-      <div className="relative z-40 border-b border-primary/10 bg-[#030914]/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-between gap-4 px-6 py-4">
+      <div className="relative z-40 border-b border-primary/10 bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-[1600px] flex-col gap-4 px-4 py-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6">
           
           {/* Left Group */}
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex w-full min-w-0 flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <TimeControls tod={tod} setTod={setTod} />
             <CitySelector cityId={cityId} onChange={changeCity} />
           </div>
 
           {/* Right Group */}
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <HorizonControls horizon={horizon} setHorizon={setHorizon} />
             <button
               onClick={exportCSV}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-5 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-primary shadow-lg transition-all hover:bg-primary/20 hover:shadow-[0_0_15px_rgba(34,211,238,0.2)]"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-5 py-2.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary shadow-lg transition-all hover:bg-primary/20 hover:shadow-[0_0_15px_rgba(34,211,238,0.2)] sm:w-auto"
             >
               <Download className="h-4 w-4" />
               Export CSV
@@ -122,24 +124,24 @@ function Dashboard() {
         </div>
       </div>
 
-      <main className="mx-auto max-w-[1600px] space-y-6 px-6 py-6">
+      <main className="mx-auto max-w-[1600px] space-y-4 px-4 py-4 sm:space-y-6 sm:px-6 sm:py-6">
 
         {/* ── City Context Bar ── */}
-        <div className="space-panel rounded-2xl px-5 py-4">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-baseline gap-4">
-              <h1 className="text-2xl font-bold tracking-tight text-gradient-space">{city.name}</h1>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+        <div className="space-panel rounded-2xl px-4 py-4 sm:px-5">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-4">
+            <div className="flex min-w-0 flex-col gap-1 sm:gap-2">
+              <h1 className="text-xl font-bold tracking-tight text-gradient-space sm:text-2xl">{city.name}</h1>
+              <span className="font-mono text-[10px] uppercase leading-relaxed tracking-widest text-muted-foreground">
                 {city.lat} · {city.lon} · {city.climate} · {(city.populationTotal / 1e6).toFixed(1)}M residents
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 rounded-xl border border-emerald-500/25 bg-emerald-500/8 px-3 py-1.5">
-                <span className="relative flex h-1.5 w-1.5">
+            <div className="flex w-full items-start sm:w-auto sm:items-center">
+              <div className="flex w-full items-center gap-2 rounded-xl border border-emerald-500/25 bg-emerald-500/8 px-3 py-2 sm:py-1.5">
+                <span className="relative flex h-1.5 w-1.5 shrink-0">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 </span>
-                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-emerald-400">
+                <span className="font-mono text-[9px] font-bold uppercase leading-snug tracking-widest text-emerald-400 sm:text-[10px]">
                   {city.satellite} · {city.capturedOn} · {horizon === "now" ? "Today" : `Projection ${horizon}`} · {tod}
                 </span>
               </div>
@@ -158,8 +160,8 @@ function Dashboard() {
         {/* ── Map + Insights ── */}
         <div className="grid gap-5 lg:grid-cols-[1fr_380px]">
           <div className="space-y-5">
-            <div className="space-panel rounded-2xl p-5">
-              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="space-panel rounded-2xl p-4 sm:p-5">
+              <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                 <div>
                   <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                     Thermal map · LST overlay
@@ -191,7 +193,7 @@ function Dashboard() {
                     </div>
                     <div className="text-2xl font-bold text-gradient-space">{selected.name}</div>
                   </div>
-                  <div className="flex flex-wrap gap-6">
+                  <div className="flex flex-wrap gap-3 sm:gap-6">
                     <Detail label="LST" value={`${selected.lst.toFixed(1)}°C`} />
                     <Detail label="NDVI" value={selected.ndvi.toFixed(2)} />
                     <Detail label="Albedo" value={selected.albedo.toFixed(2)} />
@@ -345,16 +347,17 @@ function Detail({ label, value }: { label: string; value: string }) {
 function LayerSwitcher({ value, onChange }: { value: MapLayer; onChange: (l: MapLayer) => void }) {
   const layers: MapLayer[] = ["LST", "NDVI", "Albedo", "ISF"];
   return (
-    <div className="flex items-center gap-1 rounded-xl border border-primary/15 bg-card/40 p-1.5 backdrop-blur">
-      <Layers className="ml-1 h-3.5 w-3.5 text-muted-foreground" />
+    <div className="flex w-full flex-wrap items-center gap-1 rounded-xl border border-primary/15 bg-card/40 p-1.5 backdrop-blur sm:w-auto">
+      <Layers className="ml-1 hidden h-3.5 w-3.5 text-muted-foreground sm:block" />
       {layers.map((l) => (
         <button
           key={l}
+          type="button"
           onClick={() => onChange(l)}
-          className={`rounded-lg px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-widest transition-all ${
+          className={`min-h-10 flex-1 rounded-lg px-2.5 py-2 font-mono text-[10px] font-bold uppercase tracking-widest transition-all sm:flex-none sm:py-1.5 ${
             value === l
               ? "bg-primary text-primary-foreground shadow-[0_0_10px_var(--primary)/25]"
-              : "text-muted-foreground hover:text-foreground hover:bg-primary/8"
+              : "text-muted-foreground hover:bg-primary/8 hover:text-foreground"
           }`}
         >
           {l}
