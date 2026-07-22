@@ -16,20 +16,20 @@ export function TimeControls({
   ];
 
   return (
-    <div className="flex items-center rounded-full border border-primary/20 bg-[#020814]/80 p-1 backdrop-blur-md shadow-lg">
+    <div className="flex w-full max-w-full items-center overflow-x-auto rounded-full border border-primary/20 bg-card/80 p-1 backdrop-blur-md shadow-lg [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {tods.map(({ id, label, icon: Icon }) => {
         const active = tod === id;
         return (
           <button
             key={id}
             onClick={() => setTod(id)}
-            className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest transition-all duration-300 ${
+            className={`inline-flex min-h-10 shrink-0 items-center gap-1.5 rounded-full px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-widest transition-all duration-300 sm:gap-2 sm:px-4 sm:py-2.5 ${
               active
-                ? "bg-primary text-[#020814] shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+                ? "bg-primary text-primary-foreground shadow-[0_0_15px_rgba(34,211,238,0.4)]"
                 : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
             }`}
           >
-            <Icon className={`h-3.5 w-3.5 ${active ? "text-[#020814]" : "text-primary/70"}`} />
+            <Icon className={`h-3.5 w-3.5 ${active ? "text-primary-foreground" : "text-primary/70"}`} />
             <span className="hidden sm:inline">{label}</span>
           </button>
         );
@@ -48,7 +48,7 @@ export function HorizonControls({
   const horizons: Horizon[] = ["now", "2030", "2050"];
 
   return (
-    <div className="flex items-center rounded-full border border-primary/20 bg-[#020814]/80 p-1 backdrop-blur-md shadow-lg">
+    <div className="flex w-full max-w-full items-center overflow-x-auto rounded-full border border-primary/20 bg-card/80 p-1 backdrop-blur-md shadow-lg [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <div className="pl-3 pr-2 text-primary/70">
         <Calendar className="h-3.5 w-3.5" />
       </div>
@@ -58,13 +58,20 @@ export function HorizonControls({
           <button
             key={h}
             onClick={() => setHorizon(h)}
-            className={`rounded-full px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest transition-all duration-300 ${
+            className={`min-h-10 shrink-0 rounded-full px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-widest transition-all duration-300 sm:px-4 sm:py-2.5 ${
               active
-                ? "bg-primary text-[#020814] shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+                ? "bg-primary text-primary-foreground shadow-[0_0_15px_rgba(34,211,238,0.4)]"
                 : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
             }`}
           >
-            {h === "now" ? "Today" : h}
+            {h === "now" ? (
+              <>
+                <span className="sm:hidden">Now</span>
+                <span className="hidden sm:inline">Today</span>
+              </>
+            ) : (
+              h
+            )}
           </button>
         );
       })}
