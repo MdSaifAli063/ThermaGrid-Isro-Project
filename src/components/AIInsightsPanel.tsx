@@ -97,7 +97,7 @@ export function AIInsightsPanel({ ward }: { ward: Ward | null }) {
             <span className="font-mono text-[10px] font-bold text-emerald-400">HEALTHY</span>
           </div>
         </div>
-        <div className="mt-4 grid grid-cols-3 gap-3 text-center">
+        <div className="mt-4 grid grid-cols-1 gap-3 text-center sm:grid-cols-3">
           <Stat label="RMSE" value="1.21°C" />
           <Stat label="R²" value="0.93" />
           <Stat label="Zones" value="198" />

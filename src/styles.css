@@ -46,58 +46,118 @@
 :root {
   --radius: 0.75rem;
 
-  /* ── Deep Space Navy ── */
-  --background:        oklch(0.10 0.030 255);
-  --foreground:        oklch(0.96 0.010 220);
+  /* ── Light · Clear Sky ── */
+  --background: oklch(0.985 0.008 240);
+  --foreground: oklch(0.2 0.035 255);
 
-  --card:              oklch(0.14 0.038 252);
-  --card-foreground:   oklch(0.96 0.010 220);
+  --card: oklch(0.97 0.012 245);
+  --card-foreground: oklch(0.2 0.035 255);
 
-  --popover:           oklch(0.14 0.038 252);
-  --popover-foreground:oklch(0.96 0.010 220);
+  --popover: oklch(0.99 0.008 240);
+  --popover-foreground: oklch(0.2 0.035 255);
 
-  /* ── Electric Cyan primary ── */
-  --primary:           oklch(0.78 0.200 215);
-  --primary-foreground:oklch(0.10 0.030 255);
+  --primary: oklch(0.52 0.17 215);
+  --primary-foreground: oklch(0.98 0.008 240);
 
-  --secondary:         oklch(0.18 0.040 252);
-  --secondary-foreground: oklch(0.96 0.010 220);
+  --secondary: oklch(0.94 0.015 245);
+  --secondary-foreground: oklch(0.25 0.04 255);
 
-  --muted:             oklch(0.17 0.038 252);
-  --muted-foreground:  oklch(0.56 0.055 240);
+  --muted: oklch(0.94 0.012 245);
+  --muted-foreground: oklch(0.48 0.04 250);
 
-  --accent:            oklch(0.72 0.180 240);
-  --accent-foreground: oklch(0.10 0.030 255);
+  --accent: oklch(0.58 0.14 240);
+  --accent-foreground: oklch(0.98 0.008 240);
 
-  --destructive:       oklch(0.65 0.240 25);
-  --destructive-foreground: oklch(0.98 0.010 240);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.98 0.01 240);
 
-  --border:            oklch(0.22 0.048 250);
-  --input:             oklch(0.18 0.038 252);
-  --ring:              oklch(0.78 0.200 215);
+  --border: oklch(0.88 0.02 250);
+  --input: oklch(0.92 0.015 245);
+  --ring: oklch(0.52 0.17 215);
 
-  /* ── Heat scale ── */
-  --heat-cool:         oklch(0.72 0.180 240);
-  --heat-mild:         oklch(0.76 0.170 200);
-  --heat-warm:         oklch(0.82 0.180 160);
-  --heat-hot:          oklch(0.75 0.200 60);
-  --heat-extreme:      oklch(0.62 0.260 25);
+  --heat-cool: oklch(0.52 0.16 240);
+  --heat-mild: oklch(0.58 0.15 200);
+  --heat-warm: oklch(0.62 0.16 160);
+  --heat-hot: oklch(0.58 0.19 55);
+  --heat-extreme: oklch(0.52 0.22 25);
 
-  --chart-1: oklch(0.78 0.200 215);
-  --chart-2: oklch(0.72 0.180 240);
-  --chart-3: oklch(0.76 0.170 200);
-  --chart-4: oklch(0.75 0.200 60);
-  --chart-5: oklch(0.62 0.260 25);
+  --chart-1: oklch(0.52 0.17 215);
+  --chart-2: oklch(0.58 0.14 240);
+  --chart-3: oklch(0.58 0.15 200);
+  --chart-4: oklch(0.58 0.19 55);
+  --chart-5: oklch(0.52 0.22 25);
+
+  --chart-grid: oklch(0.9 0.015 250);
+  --chart-axis: oklch(0.5 0.04 250);
+  --chart-tooltip-bg: oklch(0.99 0.005 250);
+  --chart-tooltip-border: oklch(0.88 0.02 250);
+  --chart-tooltip-fg: oklch(0.22 0.03 255);
+  --chart-cursor: oklch(0.88 0.02 250 / 0.5);
+}
+
+.dark {
+  /* ── Dark · Deep Space Navy ── */
+  --background: oklch(0.1 0.03 255);
+  --foreground: oklch(0.96 0.01 220);
+
+  --card: oklch(0.14 0.038 252);
+  --card-foreground: oklch(0.96 0.01 220);
+
+  --popover: oklch(0.14 0.038 252);
+  --popover-foreground: oklch(0.96 0.01 220);
+
+  --primary: oklch(0.78 0.2 215);
+  --primary-foreground: oklch(0.1 0.03 255);
+
+  --secondary: oklch(0.18 0.04 252);
+  --secondary-foreground: oklch(0.96 0.01 220);
+
+  --muted: oklch(0.17 0.038 252);
+  --muted-foreground: oklch(0.56 0.055 240);
+
+  --accent: oklch(0.72 0.18 240);
+  --accent-foreground: oklch(0.1 0.03 255);
+
+  --destructive: oklch(0.65 0.24 25);
+  --destructive-foreground: oklch(0.98 0.01 240);
+
+  --border: oklch(0.22 0.048 250);
+  --input: oklch(0.18 0.038 252);
+  --ring: oklch(0.78 0.2 215);
+
+  --heat-cool: oklch(0.72 0.18 240);
+  --heat-mild: oklch(0.76 0.17 200);
+  --heat-warm: oklch(0.82 0.18 160);
+  --heat-hot: oklch(0.75 0.2 60);
+  --heat-extreme: oklch(0.62 0.26 25);
+
+  --chart-1: oklch(0.78 0.2 215);
+  --chart-2: oklch(0.72 0.18 240);
+  --chart-3: oklch(0.76 0.17 200);
+  --chart-4: oklch(0.75 0.2 60);
+  --chart-5: oklch(0.62 0.26 25);
+
+  --chart-grid: oklch(0.22 0.03 250);
+  --chart-axis: oklch(0.6 0.03 250);
+  --chart-tooltip-bg: oklch(0.16 0.025 250);
+  --chart-tooltip-border: oklch(0.25 0.06 250);
+  --chart-tooltip-fg: oklch(0.96 0.01 240);
+  --chart-cursor: oklch(0.22 0.03 250 / 0.4);
 }
 
 @layer base {
-  * { border-color: var(--color-border); box-sizing: border-box; }
-  html, body {
+  * {
+    border-color: var(--color-border);
+    box-sizing: border-box;
+  }
+  html,
+  body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-display);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 }
 
@@ -106,18 +166,19 @@
 ────────────────────────────────────────── */
 
 @utility text-gradient-space {
-  background: linear-gradient(135deg, oklch(0.97 0.01 220), oklch(0.78 0.20 215) 55%, oklch(0.72 0.18 240));
+  background: linear-gradient(135deg, var(--foreground), var(--primary) 55%, var(--accent));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 @utility text-glow-cyan {
-  text-shadow: 0 0 8px oklch(0.78 0.20 215 / 0.65), 0 0 18px oklch(0.78 0.20 215 / 0.30);
+  text-shadow: none;
 }
 
 @utility space-panel {
-  background: linear-gradient(140deg,
+  background: linear-gradient(
+    140deg,
     color-mix(in oklch, var(--card) 94%, transparent),
     color-mix(in oklch, var(--primary) 4%, var(--card))
   );
@@ -144,20 +205,27 @@
 
 @utility star-bg {
   background-image:
-    radial-gradient(1px   1px   at 12% 18%, oklch(0.95 0.01 220 / 0.55) 0px, transparent 0px),
-    radial-gradient(1px   1px   at 34% 72%, oklch(0.95 0.01 220 / 0.45) 0px, transparent 0px),
-    radial-gradient(1.5px 1.5px at 58% 12%, oklch(0.95 0.01 220 / 0.50) 0px, transparent 0px),
-    radial-gradient(1px   1px   at 76% 48%, oklch(0.95 0.01 220 / 0.35) 0px, transparent 0px),
-    radial-gradient(1px   1px   at 90% 82%, oklch(0.95 0.01 220 / 0.40) 0px, transparent 0px),
-    radial-gradient(1.5px 1.5px at 22% 60%, oklch(0.78 0.20 215 / 0.45) 0px, transparent 0px),
-    radial-gradient(1px   1px   at 48% 38%, oklch(0.95 0.01 220 / 0.30) 0px, transparent 0px),
-    radial-gradient(1px   1px   at 66% 88%, oklch(0.95 0.01 220 / 0.35) 0px, transparent 0px),
-    radial-gradient(1px   1px   at  8% 92%, oklch(0.95 0.01 220 / 0.30) 0px, transparent 0px),
-    radial-gradient(1.5px 1.5px at 82% 24%, oklch(0.78 0.20 215 / 0.40) 0px, transparent 0px);
+    radial-gradient(1px 1px at 12% 18%, oklch(0.95 0.01 220 / 0.55) 0px, transparent 0px),
+    radial-gradient(1px 1px at 34% 72%, oklch(0.95 0.01 220 / 0.45) 0px, transparent 0px),
+    radial-gradient(1.5px 1.5px at 58% 12%, oklch(0.95 0.01 220 / 0.5) 0px, transparent 0px),
+    radial-gradient(1px 1px at 76% 48%, oklch(0.95 0.01 220 / 0.35) 0px, transparent 0px),
+    radial-gradient(1px 1px at 90% 82%, oklch(0.95 0.01 220 / 0.4) 0px, transparent 0px),
+    radial-gradient(1.5px 1.5px at 22% 60%, oklch(0.78 0.2 215 / 0.45) 0px, transparent 0px),
+    radial-gradient(1px 1px at 48% 38%, oklch(0.95 0.01 220 / 0.3) 0px, transparent 0px),
+    radial-gradient(1px 1px at 66% 88%, oklch(0.95 0.01 220 / 0.35) 0px, transparent 0px),
+    radial-gradient(1px 1px at 8% 92%, oklch(0.95 0.01 220 / 0.3) 0px, transparent 0px),
+    radial-gradient(1.5px 1.5px at 82% 24%, oklch(0.78 0.2 215 / 0.4) 0px, transparent 0px);
   background-size:
-    380px 260px, 290px 240px, 460px 380px,
-    330px 290px, 420px 340px, 300px 220px,
-    370px 310px, 240px 190px, 500px 400px, 350px 280px;
+    380px 260px,
+    290px 240px,
+    460px 380px,
+    330px 290px,
+    420px 340px,
+    300px 220px,
+    370px 310px,
+    240px 190px,
+    500px 400px,
+    350px 280px;
 }
 
 /* ──────────────────────────────────────────
@@ -165,47 +233,110 @@
 ────────────────────────────────────────── */
 
 @keyframes pulse-heat {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50%       { opacity: 1;    transform: scale(1.14); }
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.14);
+  }
 }
 @keyframes float-slow {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-13px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-13px);
+  }
 }
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(26px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes glow-pulse {
-  0%, 100% { opacity: 0.65; }
-  50%       { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 @keyframes scanline {
-  0%   { transform: translateY(-100%); opacity: 0.5; }
-  50%  { opacity: 0.85; }
-  100% { transform: translateY(200%); opacity: 0.5; }
+  0% {
+    transform: translateY(-100%);
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(200%);
+    opacity: 0.5;
+  }
 }
 @keyframes scroll-left {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* ──────────────────────────────────────────
    ANIMATION CLASSES
 ────────────────────────────────────────── */
 
-.animate-pulse-heat  { animation: pulse-heat  3s ease-in-out infinite; }
-.animate-float-slow  { animation: float-slow  7s ease-in-out infinite; }
-.animate-fade-up     { animation: fade-up     0.85s ease-out both; }
-.animate-spin-slow   { animation: spin-slow   20s linear infinite; }
-.animate-spin        { animation: spin        8s  linear infinite; }
-.animate-glow-pulse  { animation: glow-pulse  3s ease-in-out infinite; }
-.animate-scanline    { animation: scanline    5s linear infinite; }
+.animate-pulse-heat {
+  animation: pulse-heat 3s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+.animate-fade-up {
+  animation: fade-up 0.85s ease-out both;
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+.animate-spin {
+  animation: spin 8s linear infinite;
+}
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+.animate-scanline {
+  animation: scanline 5s linear infinite;
+}
+
+.dark .text-glow-cyan {
+  text-shadow:
+    0 0 8px oklch(0.78 0.2 215 / 0.65),
+    0 0 18px oklch(0.78 0.2 215 / 0.3);
+}
