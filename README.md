@@ -6,7 +6,6 @@
 
 ThermaGrid is a geospatial AI platform that detects urban heat hotspots from satellite thermal imagery and recommends physics-informed cooling interventions. It ingests imagery from Landsat-9, Sentinel-2, MOSDAC INSAT-3DR, and Resourcesat-2A LISS-IV to map urban heat islands at 30 m resolution. A physics-informed neural network (PINN) then recommends the exact mix of cool roofs, canopy, and reflective pavement to deploy.
 
-
 ## ✨ Features
 
 - 🛰️ **Multi-sensor ingest**: Integrates multiple satellite feeds into a single 30 m thermal stack.
