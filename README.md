@@ -13,7 +13,6 @@ ThermaGrid is a geospatial AI platform that detects urban heat hotspots from sat
 - 🧠 **PINN + SHAP**: Physics-informed network enforcing surface energy balance with SHAP attribution.
 - ❄️ **Cooling optimizer**: Counterfactual scenarios across cooling interventions ranked by ΔT, capex, and CO₂ offset.
 
-
 ## 🛠️ Tech Stack
 
 - ⚛️ **Framework**: React 19 + TypeScript
