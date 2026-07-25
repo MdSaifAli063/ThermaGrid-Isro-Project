@@ -25,7 +25,6 @@ ThermaGrid is a geospatial AI platform that detects urban heat hotspots from sat
 
 ## 🚀 Getting Started
 
-
 ### 📋 Prerequisites
 
 Ensure you have [Bun 🥟](https://bun.sh/) or [Node.js 🟩](https://nodejs.org/) installed.
